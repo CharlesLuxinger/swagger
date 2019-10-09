@@ -16,16 +16,24 @@ info:
     name: Charles Luxinger
     url: https://www.linkedin.com/in/charlesluxinger/
     email: charlesluxinger@gmail.com
-
+    
+securityDefinitions:
+  BasicAuth:
+    type: basic
+    
+security: 
+  - BasicAuth: []
+  
+consumes:
+  - application/json
+produces:
+  - application/json
+  
 paths:
   '/cliente':
     post:
       summary: Cadastra Cliente
-      description: Cadastra um novo cliente
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      description: Cadastra um novo cliente.
       operationId: cadastraCliente
       parameters:
         - in: body
@@ -34,13 +42,55 @@ paths:
             $ref: '#/definitions/Cliente'
       responses:
         201:
-          description: Cadastrado realizado com sucesso
+          description: Cadastrado realizado com sucesso.
           schema:
             $ref: '#/definitions/Cliente'
         400:
-          description: Requisição inválida
+          description: Requisição inválida.
         500:
-          description: Error interno no servidor
+          description: Error interno no servidor.
+    
+  '/conta/{agencia}/{conta}/{digito}/saldo':
+    get:
+      summary: Consulta Saldo
+      description: Consulta o saldo da conta do cliente.
+      operationId: consultaSaldo
+      security:
+        - BasicAuth: []
+      parameters:
+        - in: path
+          name: agencia_
+          type: integer
+          format: int32
+          required: true
+        - in: path
+          name: conta_
+          type: integer
+          format: int32
+          required: true
+        - in: path
+          name: digito_
+          type: integer
+          format: int32
+          required: true
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+      responses:
+        200:
+          description: Consulta a saldo efetuda com sucesso.
+          schema:
+            type: number
+            format: double
+            example: 100.01
+        400:
+          description: Requisição inválida.
+        401:
+          description: Requisição não autorizada.
+        500:
+          description: Error interno no servidor.
+    
           
 definitions:
   Cliente:
@@ -70,7 +120,21 @@ definitions:
   Conta:
     type: object
     properties:
-      id:
+      agencia:
         type: integer
-        format: int64
-        example: 1
+        format: int32
+        example: 1234
+      conta:
+        type: integer
+        format: int32
+        example: 12345
+      digito:
+        type: integer
+        format: int32
+        example: 6
+      saldo:
+        type: number
+        format: double
+        example: 100.15
+      cliente:
+        $ref: '#/definitions/Cliente'
