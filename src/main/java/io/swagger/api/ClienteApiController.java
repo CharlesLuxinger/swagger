@@ -1,54 +1,36 @@
 package io.swagger.api;
 
-import io.swagger.model.Cliente;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.List;
+import io.swagger.annotations.ApiParam;
+import io.swagger.api.Utils.RespostasUtil;
+import io.swagger.model.Cliente;
+import io.swagger.service.ClienteService;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-09T02:27:42.981Z")
 
 @Controller
 public class ClienteApiController implements ClienteApi {
 
-    private static final Logger log = LoggerFactory.getLogger(ClienteApiController.class);
+	@Autowired
+	private ClienteService clienteService;
 
-    private final ObjectMapper objectMapper;
+	@Autowired
+	private RespostasUtil respostaUtil;
 
-    private final HttpServletRequest request;
+	@Override
+	public ResponseEntity<Cliente> cadastraCliente(@ApiParam(value = "") @Valid @RequestBody Cliente cliente) {
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public ClienteApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
-    }
+		try {
+			return clienteService.save(cliente);
+		} catch (Exception e) {
+			return respostaUtil.getErroCliente(ClienteService.FALHA_CADASTRAR_CLIENTE);
+		}
 
-    public ResponseEntity<Cliente> cadastraCliente(@ApiParam(value = ""  )  @Valid @RequestBody Cliente cliente_) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Cliente>(objectMapper.readValue("{  \"password\" : \"senha123\",  \"cpf\" : \"01234567890\",  \"conta\" : [ {    \"transacoes\" : [ {      \"tipo\" : \"debito\",      \"data\" : \"2000-01-23T04:56:07.000+00:00\",      \"valor\" : 1234.01,      \"id\" : 1234    }, {      \"tipo\" : \"debito\",      \"data\" : \"2000-01-23T04:56:07.000+00:00\",      \"valor\" : 1234.01,      \"id\" : 1234    } ],    \"conta\" : 12345,    \"saldo\" : 100.15,    \"agencia\" : 1234,    \"digito\" : 6  }, {    \"transacoes\" : [ {      \"tipo\" : \"debito\",      \"data\" : \"2000-01-23T04:56:07.000+00:00\",      \"valor\" : 1234.01,      \"id\" : 1234    }, {      \"tipo\" : \"debito\",      \"data\" : \"2000-01-23T04:56:07.000+00:00\",      \"valor\" : 1234.01,      \"id\" : 1234    } ],    \"conta\" : 12345,    \"saldo\" : 100.15,    \"agencia\" : 1234,    \"digito\" : 6  } ],  \"id\" : 1,  \"titular\" : \"Manuel Silva\"}", Cliente.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Cliente>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<Cliente>(HttpStatus.NOT_IMPLEMENTED);
-    }
+	}
 
 }
