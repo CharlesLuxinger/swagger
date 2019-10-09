@@ -29,9 +29,17 @@ consumes:
 produces:
   - application/json
   
+tags:
+  - name: Cliente
+  - name: Conta
+  - name: Extrato
+  - name: Transação
+  
 paths:
   '/cliente':
     post:
+      tags:
+        - Cliente
       summary: Cadastra Cliente
       description: Cadastra um novo cliente.
       operationId: cadastraCliente
@@ -52,6 +60,8 @@ paths:
     
   '/conta/{agencia}/{conta}/{digito}/saldo':
     get:
+      tags:
+        - Conta
       summary: Consulta Saldo
       description: Consulta o saldo da conta do cliente.
       operationId: consultaSaldo
@@ -93,6 +103,8 @@ paths:
     
   '/transacao':
     post:
+      tags:
+        - Transação
       summary: Cadastra transação na Conta
       description: Cadastra uma transação de débito ou depósito na conta.
       security:
@@ -126,9 +138,73 @@ paths:
           description: Requisição não autorizada.
         500:
           description: Error interno no servidor.
+          
+  '/transacao/{id}':
+    put:
+      tags:
+        - Transação
+      summary: Altera o valor da transação
+      description: Altera o valor de uma transação de débito ou depósito na conta.
+      security:
+        - BasicAuth: []
+      operationId: alteraValorTransacao
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          format: int64
+          required: true
+        - in: query
+          name: valor
+          type: number
+          format: double
+          required: true
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+      responses:
+        204:
+          description: Alteração do valor efetuada com sucesso.
+        400:
+          description: Requisição inválida.
+        401:
+          description: Requisição não autorizada.
+        500:
+          description: Error interno no servidor.
+          
+    delete:
+      tags:
+        - Transação
+      summary: Remove uma transação
+      description: Remove transação de débito ou depósito na conta.
+      security:
+        - BasicAuth: []
+      operationId: removeTransacao
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          format: int64
+          required: true
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+      responses:
+        204:
+          description: Remoção efetuada com sucesso.
+        400:
+          description: Requisição inválida.
+        401:
+          description: Requisição não autorizada.
+        500:
+          description: Error interno no servidor.
   
   '/extrato/{agencia}/{conta}/{digito}':
     get:
+      tags:
+        - Extrato
       summary: Consulta Extrato
       description: Consulta o extrato da conta do cliente.
       operationId: consultaExtrato
