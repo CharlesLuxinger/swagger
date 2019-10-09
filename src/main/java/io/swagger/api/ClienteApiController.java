@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import io.swagger.annotations.ApiParam;
-import io.swagger.api.Utils.RespostasUtil;
 import io.swagger.model.Cliente;
 import io.swagger.service.ClienteService;
+import io.swagger.util.RespostasUtil;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-09T02:27:42.981Z")
 
 @Controller
@@ -26,9 +26,9 @@ public class ClienteApiController implements ClienteApi {
 	public ResponseEntity<Cliente> cadastraCliente(@ApiParam(value = "") @Valid @RequestBody Cliente cliente) {
 
 		try {
-			return clienteService.save(cliente);
+			return clienteService.salva(cliente);
 		} catch (Exception e) {
-			return respostaUtil.getErroCliente(ClienteService.FALHA_CADASTRAR_CLIENTE);
+			return respostaUtil.getErroInternoCliente(ClienteService.FALHA_AO_TENTAR_CADASTRAR_UM_CLIENTE);
 		}
 
 	}

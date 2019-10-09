@@ -1,16 +1,17 @@
 package io.swagger.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.Conta;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Transacao
@@ -19,199 +20,199 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-09T02:27:42.981Z")
 
 public class Transacao   {
-  @JsonProperty("id")
-  private Long id = null;
+	@JsonProperty("id")
+	private Long id = null;
 
-  /**
-   * Gets or Sets tipo
-   */
-  public enum TipoEnum {
-    DEBITO("debito"),
-    
-    DEPOSITO("deposito");
+	/**
+	 * Gets or Sets tipo
+	 */
+	public enum TipoEnum {
+		DEBITO("debito"),
 
-    private String value;
+		DEPOSITO("deposito");
 
-    TipoEnum(String value) {
-      this.value = value;
-    }
+		private String value;
 
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
+		TipoEnum(String value) {
+			this.value = value;
+		}
 
-    @JsonCreator
-    public static TipoEnum fromValue(String text) {
-      for (TipoEnum b : TipoEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-  }
+		@Override
+		@JsonValue
+		public String toString() {
+			return String.valueOf(value);
+		}
 
-  @JsonProperty("tipo")
-  private TipoEnum tipo = null;
+		@JsonCreator
+		public static TipoEnum fromValue(String text) {
+			for (TipoEnum b : TipoEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+	}
 
-  @JsonProperty("valor")
-  private Double valor = null;
+	@JsonProperty("tipo")
+	private TipoEnum tipo = null;
 
-  @JsonProperty("data")
-  private OffsetDateTime data = null;
+	@JsonProperty("valor")
+	private Double valor = null;
 
-  @JsonProperty("conta")
-  private Conta conta = null;
+	@JsonProperty("data")
+	private OffsetDateTime data = null;
 
-  public Transacao id(Long id) {
-    this.id = id;
-    return this;
-  }
+	@JsonProperty("conta")
+	private Conta conta = null;
 
-  /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(example = "1234", value = "")
+	public Transacao id(Long id) {
+		this.id = id;
+		return this;
+	}
 
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public Transacao tipo(TipoEnum tipo) {
-    this.tipo = tipo;
-    return this;
-  }
-
-  /**
-   * Get tipo
-   * @return tipo
-  **/
-  @ApiModelProperty(value = "")
+	/**
+	 * Get id
+	 * @return id
+	 **/
+	@ApiModelProperty(example = "1234", value = "")
 
 
-  public TipoEnum getTipo() {
-    return tipo;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public void setTipo(TipoEnum tipo) {
-    this.tipo = tipo;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-  public Transacao valor(Double valor) {
-    this.valor = valor;
-    return this;
-  }
+	public Transacao tipo(TipoEnum tipo) {
+		this.tipo = tipo;
+		return this;
+	}
 
-  /**
-   * Get valor
-   * @return valor
-  **/
-  @ApiModelProperty(example = "1234.01", value = "")
-
-
-  public Double getValor() {
-    return valor;
-  }
-
-  public void setValor(Double valor) {
-    this.valor = valor;
-  }
-
-  public Transacao data(OffsetDateTime data) {
-    this.data = data;
-    return this;
-  }
-
-  /**
-   * Get data
-   * @return data
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public OffsetDateTime getData() {
-    return data;
-  }
-
-  public void setData(OffsetDateTime data) {
-    this.data = data;
-  }
-
-  public Transacao conta(Conta conta) {
-    this.conta = conta;
-    return this;
-  }
-
-  /**
-   * Get conta
-   * @return conta
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Conta getConta() {
-    return conta;
-  }
-
-  public void setConta(Conta conta) {
-    this.conta = conta;
-  }
+	/**
+	 * Get tipo
+	 * @return tipo
+	 **/
+	@ApiModelProperty(value = "")
 
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Transacao transacao = (Transacao) o;
-    return Objects.equals(this.id, transacao.id) &&
-        Objects.equals(this.tipo, transacao.tipo) &&
-        Objects.equals(this.valor, transacao.valor) &&
-        Objects.equals(this.data, transacao.data) &&
-        Objects.equals(this.conta, transacao.conta);
-  }
+	public TipoEnum getTipo() {
+		return tipo;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, tipo, valor, data, conta);
-  }
+	public void setTipo(TipoEnum tipo) {
+		this.tipo = tipo;
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Transacao {\n");
-    
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    tipo: ").append(toIndentedString(tipo)).append("\n");
-    sb.append("    valor: ").append(toIndentedString(valor)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    conta: ").append(toIndentedString(conta)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	public Transacao valor(Double valor) {
+		this.valor = valor;
+		return this;
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Get valor
+	 * @return valor
+	 **/
+	@ApiModelProperty(example = "1234.01", value = "")
+
+
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+
+	public Transacao data(OffsetDateTime data) {
+		this.data = data;
+		return this;
+	}
+
+	/**
+	 * Get data
+	 * @return data
+	 **/
+	@ApiModelProperty(value = "")
+
+	@Valid
+
+	public OffsetDateTime getData() {
+		return data;
+	}
+
+	public void setData(OffsetDateTime data) {
+		this.data = data;
+	}
+
+	public Transacao conta(Conta conta) {
+		this.conta = conta;
+		return this;
+	}
+
+	/**
+	 * Get conta
+	 * @return conta
+	 **/
+	@ApiModelProperty(value = "")
+
+	@Valid
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
+
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Transacao transacao = (Transacao) o;
+		return Objects.equals(this.id, transacao.id) &&
+				Objects.equals(this.tipo, transacao.tipo) &&
+				Objects.equals(this.valor, transacao.valor) &&
+				Objects.equals(this.data, transacao.data) &&
+				Objects.equals(this.conta, transacao.conta);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, tipo, valor, data, conta);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class Transacao {\n");
+
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    tipo: ").append(toIndentedString(tipo)).append("\n");
+		sb.append("    valor: ").append(toIndentedString(valor)).append("\n");
+		sb.append("    data: ").append(toIndentedString(data)).append("\n");
+		sb.append("    conta: ").append(toIndentedString(conta)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 }
 
