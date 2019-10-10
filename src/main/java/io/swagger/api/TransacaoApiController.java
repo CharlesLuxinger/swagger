@@ -24,12 +24,16 @@ public class TransacaoApiController implements TransacaoApi {
 	private TransacaoService transacaoService;
 
 	@Autowired
-	private RespostasUtil respostaUtil;
+	private RespostasUtil respostasUtil;
 
 
 	@Override
 	public ResponseEntity<Void> alteraValorTransacao(@ApiParam(value = "",required=true) @PathVariable("id") Long id,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "valor", required = true) Double valor,@ApiParam(value = "" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization) {
-		return null;
+		try {
+			return transacaoService.atualiza(authorization, id, valor);
+		} catch (Exception e) {
+			return respostasUtil.getErroInterno(RespostasUtil.MENSAGEM_FALHA_AO_TENTAR_ATUALIZAR_TRANSACAO);
+		}
 	}
 
 	@Override
@@ -42,7 +46,7 @@ public class TransacaoApiController implements TransacaoApi {
 		try {
 			return transacaoService.salva(authorization, transacao, tipo);
 		} catch (Exception e) {
-			return respostaUtil.getErroInternoTransacao(RespostasUtil.MENSAGEM_FALHA_AO_SALVAR_TRANSACAO);
+			return respostasUtil.getErroInternoTransacao(RespostasUtil.MENSAGEM_FALHA_AO_SALVAR_TRANSACAO);
 		}
 
 	}
