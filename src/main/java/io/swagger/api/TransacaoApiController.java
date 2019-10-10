@@ -52,8 +52,15 @@ public class TransacaoApiController implements TransacaoApi {
 	}
 
 	@Override
-	public ResponseEntity<Void> removeTransacao(@ApiParam(value = "",required=true) @PathVariable("id") Long id,@ApiParam(value = "" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization) {
-		return null;
+	public ResponseEntity<Void> removeTransacao(@ApiParam(value = "", required = true) 
+			@PathVariable("id") Long id,
+			@ApiParam(value = "", required = true) 
+			@RequestHeader(value = "Authorization", required = true) String authorization) {
+		try {
+			return transacaoService.exclui(authorization, id);
+		} catch (Exception e) {
+			return respostasUtil.getErroInterno(RespostasUtil.MENSAGEM_FALHA_AO_TENTAR_EXCLUIR_TRANSACAO);
+		}
 	}
 
 }
